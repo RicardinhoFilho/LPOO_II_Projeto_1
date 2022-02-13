@@ -136,7 +136,6 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
             cursosFormatados[i][2] = lista.get(i).getSigla();
 
             //System.out.println(lista.get(i).getNome());
-
         }
 
         cursoTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -558,11 +557,11 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
 
     public void editaHelper() {
         cancelarButton.setEnabled(true);
-
+        Curso foco = (Curso) controle.getEmFoco();
         salvarButton.setEnabled(true);
-        nomeTextField.setText(controle.getEmFoco().getNome());
-        siglaTextField.setText(controle.getEmFoco().getSigla());
-        codigoTextField.setText(controle.getEmFoco().getCodigo());
+        nomeTextField.setText(foco.getNome());
+        siglaTextField.setText(foco.getSigla());
+        codigoTextField.setText(foco.getCodigo());
     }
 
     public void moveProximo(ControleDados controle) {
@@ -626,30 +625,30 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
     public void consultaHelper() {
         novoButton.setEnabled(true);
         excluirButton.setEnabled(true);
-         editButton.setEnabled(true);
-         
+        editButton.setEnabled(true);
+
         int teste = cursoTable.getSelectedRow();
         controle.setEmFoco(teste);
-        Curso teste2 = controle.getEmFoco();
+        Curso teste2 = (Curso) controle.getEmFoco();
         System.out.println(teste2.getNome());
     }
 
     public void defineBotoesDeConsulta() {
         int teste = controle.getList().size();
-        
-        if(controle.getEstado() != EstadoControleDados.EDICAO){
+
+        if (controle.getEstado() != EstadoControleDados.EDICAO) {
             if (teste > 0) {
 
-            primeiroButton.setEnabled(true);
-            ultimoButton.setEnabled(true);
+                primeiroButton.setEnabled(true);
+                ultimoButton.setEnabled(true);
+            }
+
+            if (teste > 1) {
+                anteriorButton.setEnabled(true);
+                proximoButton.setEnabled(true);
+            }
+
         }
 
-        if (teste > 1) {
-            anteriorButton.setEnabled(true);
-            proximoButton.setEnabled(true);
-        }
-            
-        }
-        
     }
 }

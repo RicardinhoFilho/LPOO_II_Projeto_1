@@ -12,30 +12,28 @@ import java.util.List;
  *
  * @author User
  */
-public class ControleDados {
+public class ControleDados<E> {
 
-    private ArrayList<Curso> colecao;
-    private Curso emFoco = null;
+    private ArrayList<E> colecao;
+    private E emFoco = null;
     private int index = -1;
     //
     private EstadoControleDados estado = EstadoControleDados.INATIVO;
 
     public ControleDados() {
-        this.colecao = new ArrayList<Curso>();
+        this.colecao = new ArrayList<E>();
     }
 
-    public ArrayList<Curso> getList() {
+    public ArrayList<E> getList() {
         return colecao;
     }
 
-    public void setCurso(int index, Curso curso) {
-        this.colecao.get(index).setCodigo(curso.getCodigo());
-        this.colecao.get(index).setNome(curso.getNome());
-        this.colecao.get(index).setSigla(curso.getSigla());
+    public void setCurso(int index, E element) {
+        this.colecao.set(index, element);
     }
 
-    public void addElement(Curso curso) {
-        this.colecao.add(curso);
+    public void addElement(E element) {
+          this.colecao.add(element);
     }
 
     public EstadoControleDados getEstado() {
@@ -51,9 +49,9 @@ public class ControleDados {
         this.emFoco = colecao.get(index);
     }
 
-    public Curso getEmFoco() {
+    public E getEmFoco() {
 
-        return this.emFoco;
+        return   this.emFoco;
 
     }
 
