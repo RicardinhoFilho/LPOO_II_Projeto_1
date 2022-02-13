@@ -33,7 +33,7 @@ public class ControleDados<E> {
     }
 
     public void addElement(E element) {
-          this.colecao.add(element);
+        this.colecao.add(element);
     }
 
     public EstadoControleDados getEstado() {
@@ -42,6 +42,70 @@ public class ControleDados<E> {
 
     public void setEstado(EstadoControleDados estado) {
 
+        EstadoControleDados aux = this.estado;
+        if (estado == aux) {
+            return;
+        }
+        switch (aux) {
+            case INATIVO: {
+                if (estado != EstadoControleDados.INCLUSAO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+            }
+
+            case CANCELANDO: {
+                if (estado == EstadoControleDados.SALVANDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+
+            }
+
+            case CONSULTA: {
+                if (estado != EstadoControleDados.INCLUSAO && estado != EstadoControleDados.EDICAO && estado != EstadoControleDados.EXCLUINDO && estado != EstadoControleDados.CARREGANDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+
+            }
+
+            case EXCLUINDO: {
+                if (estado == EstadoControleDados.SALVANDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+            }
+
+            case CARREGANDO: {
+                if (estado == EstadoControleDados.SALVANDO || estado == EstadoControleDados.EDICAO || estado == EstadoControleDados.EXCLUINDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+            }
+
+            case EDICAO: {
+                if (estado != EstadoControleDados.SALVANDO && estado != EstadoControleDados.CANCELANDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+            }
+
+            case INCLUSAO: {
+                if (estado != EstadoControleDados.SALVANDO && estado != EstadoControleDados.CANCELANDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+            }
+
+            case SALVANDO: {
+                if (estado == EstadoControleDados.CANCELANDO) {
+                    throw new Error("Alteração de estado inválida");
+                }
+                break;
+            }
+
+        }
         this.estado = estado;
     }
 
@@ -51,7 +115,7 @@ public class ControleDados<E> {
 
     public E getEmFoco() {
 
-        return   this.emFoco;
+        return this.emFoco;
 
     }
 

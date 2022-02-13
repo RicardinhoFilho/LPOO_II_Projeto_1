@@ -207,7 +207,6 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
 
             case EXCLUINDO:
                 controle.setEstado(EstadoControleDados.CONSULTA);
-
                 break;
 
             case CANCELANDO:
@@ -502,13 +501,15 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
     private javax.swing.JLabel statusLabel;
     private javax.swing.JButton ultimoButton;
     // End of variables declaration//GEN-END:variables
-
+    @Override
     public void remove(ControleDados control) {
+        controle.setEstado(EstadoControleDados.EXCLUINDO);
         controle.removeElement(cursoTable.getSelectedRow());
-        jTabbedPane1.setSelectedIndex(1);
-        controle.setEstado(EstadoControleDados.EDICAO);
+       
+        
         handleStatus();
         atualizaTabela();
+        
         handleStatus();
     }
 
@@ -554,7 +555,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         handleStatus();
 
     }
-
+    @Override
     public void editaHelper() {
         cancelarButton.setEnabled(true);
         Curso foco = (Curso) controle.getEmFoco();
@@ -574,7 +575,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         controle.setEstado(EstadoControleDados.CONSULTA);
         handleStatus();
     }
-
+    @Override
     public void moveAnterior(ControleDados controle) {
         int teste = cursoTable.getSelectedRow();
 
@@ -586,13 +587,13 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         controle.setEstado(EstadoControleDados.CONSULTA);
         handleStatus();
     }
-
+    @Override
     public void moveUltimo(ControleDados controle) {
         cursoTable.changeSelection(controle.getList().size() - 1, controle.getList().size() - 1, false, false);
         controle.setEstado(EstadoControleDados.CONSULTA);
         handleStatus();
     }
-
+    @Override
     public void movePrimeiro(ControleDados controle) {
         controle.setEstado(EstadoControleDados.CONSULTA);
 
@@ -600,7 +601,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         handleStatus();
 
     }
-
+    @Override
     public void cancela() {
         controle.setEstado(EstadoControleDados.CANCELANDO);
         limpaFormulario();
@@ -609,7 +610,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
 
         handleStatus();
     }
-
+    @Override
     public void antesDeAdicionar() {
         controle.setEstado(EstadoControleDados.INCLUSAO);
         jTabbedPane1.setSelectedIndex(1);
@@ -621,7 +622,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         controle.setEstado(EstadoControleDados.EDICAO);
         handleStatus();
     }
-
+    @Override
     public void consultaHelper() {
         novoButton.setEnabled(true);
         excluirButton.setEnabled(true);
@@ -633,6 +634,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         System.out.println(teste2.getNome());
     }
 
+       @Override
     public void defineBotoesDeConsulta() {
         int teste = controle.getList().size();
 
