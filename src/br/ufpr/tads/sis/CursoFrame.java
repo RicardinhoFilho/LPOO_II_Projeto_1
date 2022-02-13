@@ -131,11 +131,11 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
         //System.out.println(lista.get(0).getNome());
 
         for (int i = 0; i < lista.size(); i++) {
-            cursosFormatados[i][0] = lista.get(i).getNome();
-            cursosFormatados[i][1] = lista.get(i).getCodigo();
+            cursosFormatados[i][0] = lista.get(i).getCodigo();
+            cursosFormatados[i][1] = lista.get(i).getNome();
             cursosFormatados[i][2] = lista.get(i).getSigla();
 
-            System.out.println(lista.get(i).getNome());
+            //System.out.println(lista.get(i).getNome());
 
         }
 
@@ -154,7 +154,7 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
 
         nomeTextField.setText(" ");
         siglaTextField.setText(" ");
-        codigoTextField.setText("");
+        codigoTextField.setText(" ");
 
     }
 
@@ -626,8 +626,8 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
     public void consultaHelper() {
         novoButton.setEnabled(true);
         excluirButton.setEnabled(true);
-
-        editButton.setEnabled(true);
+         editButton.setEnabled(true);
+         
         int teste = cursoTable.getSelectedRow();
         controle.setEmFoco(teste);
         Curso teste2 = controle.getEmFoco();
@@ -636,7 +636,9 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
 
     public void defineBotoesDeConsulta() {
         int teste = controle.getList().size();
-        if (teste > 0) {
+        
+        if(controle.getEstado() != EstadoControleDados.EDICAO){
+            if (teste > 0) {
 
             primeiroButton.setEnabled(true);
             ultimoButton.setEnabled(true);
@@ -646,5 +648,8 @@ public class CursoFrame extends javax.swing.JFrame implements ControleDadosObser
             anteriorButton.setEnabled(true);
             proximoButton.setEnabled(true);
         }
+            
+        }
+        
     }
 }
